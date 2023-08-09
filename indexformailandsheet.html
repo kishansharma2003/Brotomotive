@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive Registration Form | CodingLab</title>
+    <link rel="stylesheet" href="style2.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">Appoinment Form</div>
+      <div class="content">
+
+        
+        <form  method="post" name="google-sheet">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Full Name</span>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                name="Full-Name"
+                id="full-name"
+              />
+            </div>
+
+            <div class="input-box">
+              <span class="details">Car Name</span>
+              <input
+                type="text"
+                placeholder="Enter your username"
+                id="car-name"
+                name="Car-Name"
+              />
+            </div>
+
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                name="E-mail"
+                id="email"
+              />
+            </div>
+
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input
+                type="number"
+                placeholder="Enter your number"
+                name="Mobile-No"
+                id="contact-no"
+              />
+            </div>
+
+            <div class="input-box">
+              <span class="details" class="input-box">Service Details</span>
+              <textarea rows="5" cols="50" name="A-details" id="details"> </textarea>
+            </div>
+
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input
+                type="date"
+                placeholder="Appoinment Date"
+                name="A-date"
+                id="date"
+              />
+            </div>
+
+            <div>
+              <p class="title1">Upload Your Car Pictures</p>
+              <input type="file" value="Book Now" accept="image/*" />
+            </div>
+          </div>
+
+           <div class="button">
+            <input type="submit" value="Book Appoinment" name="submit" onclick="Mail()"  />
+          </div> 
+
+        </form>
+      </div>
+    </div>
+
+
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwNEZeq5SgHqI2v-c7spnWsvG_3IVS4hkCcffOJxrUVVQJV0aIS-y104O_nGKEcpdy_/exec'
+      const form = document.forms['google-sheet']
+    
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+          .catch(error => console.error('Error!', error.message))
+      })
+    </script>
+
+    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+
+      function Mail() {
+
+        let firstname = document.getElementById("full-name").value;
+        let car = document.getElementById("car-name").value;
+        let email = document.getElementById("email").value;
+        let contact = document.getElementById("contact-no").value;
+        contact = Number(contact);
+        let d = document.getElementById("date").value;
+        // let feedback = document.getElementById("feedback").value;
+
+
+        // created the host username and password from the smtp website
+
+        Email.send({
+          Host: "smtp.elasticemail.com",
+          Username: "hitmankishan27@gmail.com",
+          Password: "01ABBD7DEE3B35D551B074278697F7BBAD7E",
+          To: email,
+          From: "hitmankishan27@gmail.com",
+          Subject: "Appointment Confirmation for Your Car Name:-"+ car +" Customization at Brotomotive",
+          Body: "Dear "+firstname+"; <br>Thank you for scheduling an appointment with Brotomotive for your Car Name:-  "+car+" customization needs .<br> We appreciate your trust in us and are excited to work with you.<br>  Your appointment is confirmed for "+d+" . <br> Please bring any necessary documents or information related to your car customization. If you need to reschedule or have any additional questions, please don't hesitate to contact us at 7559432191 We'll be happy to assist you.<br>  We look forward to seeing you and your "+car+" at Brotomotive soon!<br>  Best regards,<br>  Kishan Sharma <br> Brotomotive Team"
+
+          
+
+
+        }).then(
+          message => alert("Appoinment Booked")
+        );
+      }
+    </script>
+
+
+  </body>
+</html>

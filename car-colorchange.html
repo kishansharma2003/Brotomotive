@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      :root {
+        box-sizing: border-box;
+      }
+      *,
+      *::after,
+      *::before {
+        box-sizing: inherit;
+        margin: 0;
+        padding: 0;
+      }
+
+      .product img {
+        width: 700px;
+        height: 350px;
+      }
+      .container {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        width: 100vw;
+        padding: 0 2.5rem;
+        background-color: hsl(0, 0%, 100%);
+      }
+
+      .product::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: hsl(0, 0%, 100%);
+        /* opacity: 0.5; */
+        mix-blend-mode: hue;
+      }
+
+      .product-nav {
+        position: relative;
+      }
+      .product-nav label {
+        display: inline-block;
+        width: 5vmin;
+        height: 5vmin;
+        background-color: hsl(30, 50%, 75%);
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 0 0.5em #fff,
+          0.5em 0.5em 1em -0.15em rgba(0, 0, 0, 0.25);
+        transition: 200ms all ease-in-out;
+      }
+
+      .product-nav label + label {
+        margin-left: 2.5em;
+      }
+
+      /* this cahnege the color of the image */
+      .product-nav label:nth-of-type(1),
+      #color-1:checked ~ .product::after {
+        background-color: hsl(0, 100%, 50%);
+        border: solid black;
+      }
+      .product-nav label:nth-of-type(2),
+      #color-2:checked ~ .product::after {
+        background-color: hsl(246, 94%, 49%);
+        border: solid black;
+      }
+      .product-nav label:nth-of-type(3),
+      #color-3:checked ~ .product::after {
+        background-color: hsl(118, 94%, 50%);
+        border: solid black;
+      }
+      .product-nav label:nth-of-type(4),
+      #color-4:checked ~ .product::after {
+        background-color: hsl(34, 100%, 50%);
+      }
+
+      #color-1:checked ~ .product-nav > label:nth-of-type(1),
+      #color-2:checked ~ .product-nav > label:nth-of-type(2),
+      #color-3:checked ~ .product-nav > label:nth-of-type(3),
+      #color-4:checked ~ .product-nav > label:nth-of-type(4) {
+        transform: scale(1.3);
+      }
+
+      /* //this is for the input */
+
+      #color-1:checked ~ .product-nav > label:nth-of-type(1) {
+        background-color: hsl(0, 100%, 50%);
+      }
+      #color-2:checked ~ .product-nav > label:nth-of-type(2) {
+        background-color: hsl(246, 94%, 49%);
+      }
+      #color-3:checked ~ .product-nav > label:nth-of-type(3) {
+        background-color: hsl(118, 94%, 50%);
+      }
+      #color-4:checked ~ .product-nav > label:nth-of-type(4) {
+        background-color: hsl(34, 100%, 50%);
+      }
+
+      .input {
+        position: relative;
+        right: -420px;
+        bottom: 200px;
+      }
+
+      button{
+        position: relative;
+        right: -500px;
+        bottom: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input type="radio" name="color" id="color-1" checked hidden />
+      <input type="radio" name="color" id="color-2" hidden />
+      <input type="radio" name="color" id="color-3" hidden />
+      <input type="radio" name="color" id="color-4" hidden />
+      <div class="product">
+        <img src="ppp.png" id="carimage" />
+      </div>
+      <div class="product-nav">
+        <label for="color-1"></label>
+        <label for="color-2"></label>
+        <label for="color-3"></label>
+        <label for="color-4"></label>
+      </div>
+    </div>
+
+    <input type="file" accept="image/png" id="newimage" class="input" />
+    <button onclick="change()">Submit</button>
+
+    <script>
+      function change() {
+        // Get the file input element
+        var input = document.getElementById("newimage");
+        // Check if a file is selected
+        if (input.files && input.files[0]) {
+          // Create a new FileReader object
+          var reader = new FileReader();
+          // Set the function to run when the file is loaded
+          reader.onload = function (e) {
+            // Get the image element
+            var img = document.getElementById("carimage");
+            // Set the source of the image to the loaded file
+            img.src = e.target.result;
+          };
+          // Load the selected file
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    </script>
+  </body>
+</html>
